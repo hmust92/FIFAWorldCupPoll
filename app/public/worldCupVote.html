@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main World Cup Vote</title>
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.0.0/lumen/bootstrap.min.css" />
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.anychart.com/js/8.0.1/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/js/8.0.1/anychart-pie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+</head>
+<style>
+
+.rowTwo{
+        margin-top: 2%;
+}
+
+.crestHomie {
+    width:100px;
+    height:100px;
+}
+
+.crestHomie:hover {
+cursor: pointer;
+}
+
+
+
+.theDivOfContainer {
+
+    float:left;
+    padding:20px;
+    
+}
+
+.navbar-text{
+        margin-right: 2%;
+        }
+
+.jumbotron{
+        background-image: url(https://d2ujflorbtfzji.cloudfront.net/package-screenshot/d57cee46-b8d1-4b6f-8215-70119f3573fc_scaled.jpg);
+    color: white;
+}
+
+.navbar{
+    background-image:url(https://png.pngtree.com/thumb_back/fh260/back_pic/04/14/75/49582074207339b.jpg);
+
+}
+
+body{
+    background-image:url(https://media.gettyimages.com/photos/white-marble-natural-pattern-for-background-picture-id508381196?b=1&k=6&m=508381196&s=612x612&w=0&h=1TCseZIjsA3A0-DE8K2H8VeFo9mScCMsogwvQoBRPVs=);
+}
+.col-md-4{
+        margin-left: 16%;
+}
+
+.coolButton{
+    font-size:120%;
+}
+#chart {
+
+  width: 100%;
+  height: 100%;
+  margin-top:2%;
+}
+
+.modalShizHomie{
+    text-align:center;
+}
+
+svg {
+    height:500px;
+}
+</style>
+<body>
+
+    <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+
+        <div class="modal-body">
+       
+        </div>
+
+      </div>
+      
+    </div>
+</div>
+
+
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="dashboard">2018 FIFA World Cup Russia™</a>
+            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#"> <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href=""> </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href=""></a>
+                </li>
+              </ul>
+              <span class="navbar-text">
+                World Cup Poll Predictor 2018
+              </span>
+              <a href="logout" class="logout btn btn-primary" role="button" aria-pressed="true">Log out</a>
+            </div>
+          </nav>
+
+           <div class="jumbotron">
+                <h1 class="display-4">TIME TO VOTE!</h1>
+                <p class="lead">Tough choices...tough choices!</p>
+                <hr class="my-4">
+              </div>
+
+
+            <div class="container">
+    <div class="row rowOne">
+        <div class="col-md-12">
+
+
+
+            <div id="theGifsMan">
+
+            </div>
+
+
+            
+        </div>
+    </div>
+    <div class="row rowTwo">
+        <div class="col-md-6">
+            <a href="coolTool" class="btn btn-primary btn-lg active coolButton" role="button" aria-pressed="true">Having trouble deciding your vote? Use our handy dandy World Cup simulator tool!</a>
+
+    </div>
+
+    <div class="col-md-4">
+        <button onclick="myFunction()" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Check out the rest of the world's votes</button>
+    </div>
+    
+</div>
+
+
+</div>
+
+<div id="chart">
+    </div>
+
+
+
+
+
+
+            <!-- Custom Script -->
+            <script>
+
+                var valueWeNeed;
+                
+
+
+    function displayTeams() {
+
+        $.ajax({
+        headers: {
+            'X-Auth-Token': '6bb784251d714643b8914d548e60bf7b'
+        },
+        url: 'http://api.football-data.org/v1/competitions/467/teams',
+        dataType: 'json',
+        type: 'GET',
+    }).done(function (response) {
+
+       // console.log(response.teams.crestUrl); //testing to see if it works
+
+        for (var i = 0; i < response.teams.length; i++) {
+
+        var divToContain = $('<div>'); //created new div 
+        divToContain.addClass("theDivOfContainer"); 
+
+        var nameofteam = $('<div>'); //created the ratings div
+                nameofteam.addClass("nameOfTeamClass");
+                nameofteam.text(response.teams[i].name);
+                $(divToContain).append(nameofteam); //appended ratings div to div that i created myself
+
+        var crestImage = $('<img>'); //created image tag
+                crestImage.addClass("crestHomie");
+                crestImage.attr("src", response.teams[i].crestUrl);
+                crestImage.attr("data-value", response.teams[i].name);
+                $(divToContain).append(crestImage);//appended image to div i created
+
+                $("#theGifsMan").append(divToContain); //appended the div i created which holds both ratings and the image to div that was created in html. now i can style it easily.
+
+    }
+
+
+
+
+
+         });
+
+
+
+
+    } //function ends here
+
+   function useVote (){
+    console.log($(this).data("value"))
+
+
+
+    valueWeNeed = $(this).data("value");
+
+    var newVote = {
+        country: valueWeNeed
+    };
+
+    $.post("/api/WC/vote", newVote)
+    // on success, run this callback
+        .then(function(data) {
+        // log the data we found
+        console.log(data);
+        // tell the user we're adding a character with an alert window
+        
+    });
+        $(".modal-body").empty()
+        var emptydiv = $("<div>")
+        var modalShiz = $("<h2>You voted for " + valueWeNeed + "</h2>");
+        modalShiz.addClass("modalShizHomie")
+        $(emptydiv).append(modalShiz)
+        $(".modal-body").append(emptydiv)
+        $("#myModal").modal();
+
+
+
+
+}
+
+
+
+displayTeams();
+
+function myFunction() {
+
+$("#chart").empty()
+    $.get("/api/count/WC", function(data) {
+
+    var myNewArray = data.map(function(yo) { return { x: yo.country, value: yo.count }})
+    console.log(myNewArray)
+      // create the chart
+  var chart = anychart.pie();
+
+  // set the chart title
+  chart.title("Chart");
+
+  // add the data
+  chart.data(myNewArray);
+
+  // display the chart in the container
+  chart.container('chart');
+  chart.draw();
+})
+
+}
+
+
+$(document).on("click",".crestHomie", useVote);
+
+
+
+
+            </script>
+</body>
+</html>

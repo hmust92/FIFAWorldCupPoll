@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main World Cup Vote</title>
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.0.0/lumen/bootstrap.min.css" />
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.anychart.com/js/8.0.1/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/js/8.0.1/anychart-pie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://momentjs.com/downloads/moment-timezone.js"></script>
+    <script src="http://momentjs.com/downloads/moment-timezone-with-data-2012-2022.min.js"></script>
+</head>
+
+<style>
+.navbar-text{
+        margin-right: 2%;
+        }
+
+.jumbotron{
+        background-image: url(https://d2ujflorbtfzji.cloudfront.net/package-screenshot/d57cee46-b8d1-4b6f-8215-70119f3573fc_scaled.jpg);
+    color: white;
+}
+
+body{
+    background-image:url(https://media.gettyimages.com/photos/white-marble-natural-pattern-for-background-picture-id508381196?b=1&k=6&m=508381196&s=612x612&w=0&h=1TCseZIjsA3A0-DE8K2H8VeFo9mScCMsogwvQoBRPVs=);
+}
+
+.navbar{
+    background-image:url(https://png.pngtree.com/thumb_back/fh260/back_pic/04/14/75/49582074207339b.jpg);
+
+}
+
+.buttonOneClass{
+    margin-top: 3%;
+    margin-bottom: 3%;
+    border: solid;
+    font-size: xx-large;
+    background-image: url(https://is2-ssl.mzstatic.com/image/thumb/Purple125/v4/fd/9f/e2/fd9fe2f6-04b0-cb2a-190f-6611782ea334/source/256x256bb.jpg)
+}
+
+.buttonTwoClass{
+            font-size: xx-large;
+    border: solid;
+    background-image: url(https://is2-ssl.mzstatic.com/image/thumb/Purple125/v4/fd/9f/e2/fd9fe2f6-04b0-cb2a-190f-6611782ea334/source/256x256bb.jpg);
+    margin-left: 3%;
+
+}
+
+.buttonThreeClass{
+    font-size: x-small;
+    margin-left: 5%;
+    border: none;
+    color: white;
+    background-color: black;
+
+}
+
+.dateClass{
+    font-family: "Times New Roman", Times, serif;
+    font-weight: bold;
+}
+
+.modalShizHomie{
+    text-align:center;
+}
+
+svg{
+    height:400px;
+}
+
+</style>
+
+
+<body>
+
+        <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+
+        <div class="modal-body">
+       
+        </div>
+
+      </div>
+      
+    </div>
+</div>
+
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="dashboard">2018 FIFA World Cup Russia™</a>
+            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#"> <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href=""> </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href=""></a>
+                </li>
+              </ul>
+              <span class="navbar-text">
+                World Cup Poll Predictor 2018
+              </span>
+              <a href="logout" class="logout btn btn-primary" role="button" aria-pressed="true">Log out</a>
+            </div>
+          </nav>
+
+           <div class="jumbotron">
+                <h1 class="display-4">Individual matches. Casuals, up your game. Pros, time to show your stuff </h1>
+                <p class="lead">Haven't been able to satisfy your craving to vote? Well how about this... vote on every single match from this point on!</p>
+                <hr class="my-4">
+              </div>
+
+
+    <div class="container">
+    <div class="row rowOne">
+        <div class="col-md-8">
+
+          <div id="matches">
+          </div>
+            
+        </div>
+
+        <div class="col-md-4">
+            
+          <div id="chart">
+          </div>
+            
+        </div>
+
+    </div>
+    
+</div>
+
+</body>
+</html>
+
+<script>
+
+function generateMatchDisplay () {
+
+        $.ajax({
+        headers: {
+            'X-Auth-Token': '6bb784251d714643b8914d548e60bf7b'
+        },
+        url: 'https://api.football-data.org/v1/competitions/467/fixtures',
+        dataType: 'json',
+        type: 'GET',
+    }).done(function (response) {
+    	
+    	for (var i=0; i<response.fixtures.length; i++) {
+
+    		if (moment(response.fixtures[i].date).isAfter(moment()) === true && response.fixtures[i].homeTeamName !== "") {
+    			
+    			var divToContain = $('<div>');
+    			divToContain.addClass("theDivOfContainer");
+
+    			var dateOfMatch = $('<div>')
+    			dateOfMatch.addClass("dateClass");
+                dateOfMatch.text(moment.tz(response.fixtures[i].date, "America/Danmarkshavn").format("MMMM Do YYYY, h:mm:ss a")); 
+                $(divToContain).append(dateOfMatch); //appended ratings div to div that i created myself
+              
+
+                var teamVsteam = $('<div>')
+                var buttonOne = $('<button>' + response.fixtures[i].homeTeamName + '</button>');
+                buttonOne.addClass("buttonOneClass")
+                buttonOne.attr("data-array-for-buttonOne", response.fixtures[i].homeTeamName);
+                buttonOne.attr("data-value", response.fixtures[i].date);
+
+                var buttonTwo = $('<button>' + response.fixtures[i].awayTeamName + '</button>');
+                buttonTwo.addClass("buttonTwoClass")
+                buttonTwo.attr("data-array-for-buttonTwo", response.fixtures[i].awayTeamName);
+                buttonTwo.attr("data-value", response.fixtures[i].date);
+
+                var buttonThree = $('<button>Check out the overall votes for this game!</button>');
+                buttonThree.addClass("buttonThreeClass")
+                buttonThree.attr("data-value", response.fixtures[i].date);
+
+				
+
+    			// teamVsteam.addClass("teamClass");
+       //          teamVsteam.text(`${response.fixtures[i].homeTeamName} vs ${response.fixtures[i].awayTeamName}`);
+                $(divToContain).append(buttonOne);
+                $(divToContain).append(buttonTwo);
+                $(divToContain).append(buttonThree); //appended ratings div to div that i created myself
+
+                $("#matches").append(divToContain)	
+
+
+
+
+    		}
+
+    	}
+
+    })
+
+}
+
+generateMatchDisplay();
+
+function useVoteOne (){
+    console.log($(this).data("value"))
+    console.log($(this).attr("data-array-for-buttonOne"))
+    var weNeed= $(this).attr("data-array-for-buttonOne");
+    
+
+    var newVote = {
+        matchID: $(this).data("value"),
+        country: $(this).attr("data-array-for-buttonOne")
+    };
+
+    $.post("/api/" + $(this).data("value") + "/vote", newVote) 
+    // on success, run this callback
+        .then(function(data) {
+        // log the data we found
+        console.log(data);
+        // tell the user we're adding a character with an alert window
+      
+    });
+
+        $(".modal-body").empty()
+        var emptydiv = $("<div>")
+        var modalShiz = $("<h2>You voted for " + weNeed + "</h2>");
+        modalShiz.addClass("modalShizHomie")
+        $(emptydiv).append(modalShiz)
+        $(".modal-body").append(emptydiv)
+        $("#myModal").modal();
+
+
+}
+
+function useVoteTwo () {
+    console.log($(this).data("value"))
+    console.log($(this).attr("data-array-for-buttonTwo"))
+
+    var weNeed=$(this).attr("data-array-for-buttonTwo")
+    
+
+    var newVote = {
+        matchID: $(this).data("value"),
+        country: $(this).attr("data-array-for-buttonTwo")
+    };
+
+    $.post("/api/" + $(this).data("value") + "/vote", newVote) 
+    // on success, run this callback
+        .then(function(data) {
+        // log the data we found
+        console.log(data);
+        // tell the user we're adding a character with an alert window
+       
+    });
+ $(".modal-body").empty()
+        var emptydiv = $("<div>")
+        var modalShiz = $("<h2>You voted for " + weNeed + "</h2>");
+        modalShiz.addClass("modalShizHomie")
+        $(emptydiv).append(modalShiz)
+        $(".modal-body").append(emptydiv)
+        $("#myModal").modal();
+
+}
+
+function useClickMe () {
+
+    $("#chart").empty()
+    console.log($(this).data("value"))
+
+
+    $.get("/api/count/" + $(this).data("value"), function(data) { 
+
+    var myNewArray = data.map(function(yo) { return { x: yo.country, value: yo.count }})
+    console.log(myNewArray)
+      // create the chart
+  var chart = anychart.pie();
+
+  // set the chart title
+  chart.title("Chart");
+
+  // add the data
+  chart.data(myNewArray);
+
+  // display the chart in the container
+  chart.container('chart');
+  chart.draw();
+})
+
+
+
+}
+
+
+
+
+
+$(document).on("click",".buttonOneClass", useVoteOne);
+$(document).on("click",".buttonTwoClass", useVoteTwo);
+$(document).on("click",".buttonThreeClass", useClickMe);
+
+
+</script>

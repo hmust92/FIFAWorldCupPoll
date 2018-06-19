@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>World Cup Experience!</title>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Do+Hyeon|Berkshire+Swash|Gamja+Flower|Roboto+Mono|Permanent+Marker|Monda|Holtwood+One+SC" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+  <link rel="stylesheet" href="https://cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+
+
+
+
+</head>
+<style>
+
+
+/* Style the video: 100% width and height to cover the entire window */
+#myVideo {
+height:100%;
+width:100%;
+}
+
+.col-md-6{
+    position: fixed;
+    bottom: 27%;
+    padding: 0%;
+    left: 25%;
+
+}
+
+#signup{
+      margin-top: 3%;
+    margin-left: 3%;
+    margin-bottom:2%;
+}
+
+#signin{
+margin-bottom: 3%;
+    margin-top: 5%;
+    margin-left: 3%;
+}
+
+body{
+  background-image: url("https://cdn.forbesmiddleeast.com/en/wp-content/uploads/sites/3/2018/06/shutterstock_1070022398-1635x1083.jpg");
+}
+
+label{
+      color: white;
+    border: solid;
+    background-color: black;
+    border-color: black;
+}
+
+.btn{
+  background-color: black;
+    color: white;
+}
+</style>
+<body>
+
+
+  <!-- The video -->
+<video autoplay muted loop id="myVideo">
+  <source src="/assets/video/Video.mp4" type="video/mp4">
+</video>
+
+<!--   <video autoplay muted loop id="myVideo" src="video/Video.mp4"></video> -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <form id="signin" name="signin" method="post" action="/signin">
+  <label for="email">Email</label>
+  <input class="text" name="email" type="text" />
+  <label for="password">Password</label>
+  <input name="password" type="password" />
+  <input class="btn" type="submit" value="Sign In" />
+</form>
+
+<form id="signup" name="signup" method="post" action="/signup">
+  <label for="email">Email</label>
+  <input class="text" name="email" type="email" />
+  <label for="password">Password</label>
+  <input name="password" type="password" />
+  <input class="btn" type="submit" value="Sign Up" />
+</form>
+
+    </div>
+  </div>
+  </div>
+
+
+
+
+</body>
+</html>
