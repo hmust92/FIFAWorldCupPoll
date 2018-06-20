@@ -2,14 +2,27 @@
  
     "development": {
  
-        "dialect": "mysql",
-                "use_env_variable": "JAWSDB_URL"
+        "username": "root",
+ 
+        "password": "root",
+ 
+        "database": "sequelize_passport",
+ 
+        "host": "127.0.0.1",
+ 
+        "dialect": "mysql"
  
     },
  
     "test": {
  
-        "use_env_variable": "JAWSDB_URL",
+        "username": "",
+ 
+        "password": null,
+ 
+        "database": "",
+ 
+        "host": "",
  
         "dialect": "mysql"
  
@@ -17,9 +30,9 @@
  
     "production": {
  
+        "dialect": "mysql",
 
-        "use_env_variable": "JAWSDB_URL",
-        "dialect": "mysql"
+        "use_env_variable": "JAWSDB_URL"
  
     }
  
