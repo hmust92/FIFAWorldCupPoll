@@ -30,7 +30,7 @@
 
 
     //load passport strategies
-    require('./app/config/passport/passport.js')(passport,models.user,models.vote);
+    require('./config/passport/passport.js')(passport,models.user,models.vote);
 
 
 
