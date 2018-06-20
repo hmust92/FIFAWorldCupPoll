@@ -7,11 +7,12 @@ var env       = process.env.NODE_ENV || "development";
 var config    = require(path.join(__dirname, '..', 'config', 'config.json'))[env];
 config = {
   host: 'q57yawiwmnaw13d2.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-  usernname: 's8l8oqxxbno3m0ae',
+  username: 's8l8oqxxbno3m0ae',
   password: 'gigysy4vue9e4tlv',
   dialect: 'mysql',
   database: 'i60y744spn23k527',
 }
+console.log(config);
 var sequelize = new Sequelize(config.database, config.username, config.password, config);
 var db        = {};
 
