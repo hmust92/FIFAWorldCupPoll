@@ -6,6 +6,7 @@
     var env        = require('dotenv').load()
     var exphbs     = require('express-handlebars')
     var path = require("path");
+    var port = process.env.PORT || 5000;
 
     app.use(express.static("./app/public"));
 
@@ -44,7 +45,7 @@
 
 
 
-	app.listen(5000, function(err){
+	app.listen(port, function(err){
 		if(!err)
 		console.log("Site is live"); else console.log(err)
 
