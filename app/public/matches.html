@@ -232,6 +232,7 @@ function useVoteOne (){
       
     });
 
+
         $(".modal-body").empty()
         var emptydiv = $("<div>")
         var modalShiz = $("<h2>You voted for " + weNeed + "</h2>");
@@ -239,6 +240,10 @@ function useVoteOne (){
         $(emptydiv).append(modalShiz)
         $(".modal-body").append(emptydiv)
         $("#myModal").modal();
+
+        // setTimeout(function(){ $("#myModal").modal("hide") }, 3000);
+   
+
 
 
 }
@@ -270,7 +275,7 @@ function useVoteTwo () {
         $(emptydiv).append(modalShiz)
         $(".modal-body").append(emptydiv)
         $("#myModal").modal();
-
+       // setTimeout(function(){ $("#myModal").modal("hide") }, 3000);
 }
 
 function useClickMe () {

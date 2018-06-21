@@ -6,7 +6,7 @@ var sequelize = require("sequelize");
 // =============================================================
 module.exports = function(app, passport) {
 
-  app.get("/", function(req, res) {
+  app.get("/", isSignedIn, function(req, res) {
     res.sendFile(path.join(__dirname, "../public/EntryPoint.html"));
   });
 
@@ -29,24 +29,38 @@ module.exports = function(app, passport) {
 
 
  app.get("/dashboard", isLoggedIn, function(req, res) {
+     console.log(req.user.id)
+
     res.sendFile(path.join(__dirname, "../public/dashboard.html"));
   });
 
   app.get("/worldcup", isLoggedIn, function(req, res) {
-    console.log(req.user)
+ 
     res.sendFile(path.join(__dirname, "../public/worldCupVote.html"));
   });
 
   app.get("/coolTool", isLoggedIn, function(req, res) {
-    console.log(req.user)
+
     res.sendFile(path.join(__dirname, "../public/coolTool.html"));
   });
 
    app.get("/matches", isLoggedIn, function(req, res) {
-    console.log(req.user)
+ 
     res.sendFile(path.join(__dirname, "../public/matches.html"));
   });
 
+     app.get("/api/alluservotes", function(req, res) {
+    
+    db.vote.findAll({
+    where: {
+    userId: req.user.id
+    }
+    }).then(function(result){
+      return res.json(result)
+    })
+
+    
+  });
 
 
  app.get("/logout", function(req, res) {
@@ -148,7 +162,21 @@ function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
         return next();
 
+
     res.redirect('/signin');
+}
+
+function isSignedIn(req, res, next) {
+    if (req.isAuthenticated()){
+        res.redirect('/dashboard');
+        next();
+      }
+
+    else {
+      res.redirect('/signin');
+    }
+
+    
 }
 
 
