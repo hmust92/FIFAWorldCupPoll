@@ -169,7 +169,7 @@ function isLoggedIn(req, res, next) {
 function isSignedIn(req, res, next) {
     if (req.isAuthenticated()){
         res.redirect('/dashboard');
-        next();
+        //next()
       }
 
     else {
