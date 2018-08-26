@@ -159,11 +159,13 @@ function generateMatchDisplay () {
         url: 'https://api.football-data.org/v1/competitions/467/fixtures',
         dataType: 'json',
         type: 'GET',
-    }).done(function (response) {
+    }).then(function (response) {
+
+        console.log(response.fixtures[63].status)
     	
     	for (var i=0; i<response.fixtures.length; i++) {
 
-    		if (moment(response.fixtures[i].date).isAfter(moment()) === true && response.fixtures[i].homeTeamName !== "") {
+    		
     			
     			var divToContain = $('<div>');
     			divToContain.addClass("theDivOfContainer");
@@ -202,7 +204,7 @@ function generateMatchDisplay () {
 
 
 
-    		}
+    		
 
     	}
 
