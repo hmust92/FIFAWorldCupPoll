@@ -16,6 +16,7 @@ module.exports = function(app, passport) {
   });
 
   app.get("/signin", function(req, res) {
+        console.log(req.foo)
     res.sendFile(path.join(__dirname, "../public/EntryPoint.html"));
   });
 
