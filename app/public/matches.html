@@ -159,7 +159,9 @@ function generateMatchDisplay () {
         url: 'https://api.football-data.org/v1/competitions/467/fixtures',
         dataType: 'json',
         type: 'GET',
-    }).done(function (response) {
+    }).then(function (response) {
+
+        console.log(response.fixtures[63].status)
     	
     	for (var i=0; i<response.fixtures.length; i++) {
 
