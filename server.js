@@ -41,7 +41,7 @@
 
 
     //Sync Database
-   	models.sequelize.sync({force: true}).then(function(){
+   	models.sequelize.sync().then(function(){
     console.log('Nice! Database looks fine')
 
     }).catch(function(err){
