@@ -87,11 +87,28 @@ svg{
        
         </div>
 
+
+
       </div>
       
     </div>
 </div>
 
+  <div class="modal fade" id="myModalTwo" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+
+
+
+          <div id="chart">
+          </div>
+
+      </div>
+      
+    </div>
+</div>
 
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="dashboard">2018 FIFA World Cup Russia™</a>
@@ -120,26 +137,21 @@ svg{
 
            <div class="jumbotron">
                 <h1 class="display-4">Individual matches. Casuals, up your game. Pros, time to show your stuff </h1>
-                <p class="lead">Haven't been able to satisfy your craving to vote? Well how about this... vote on every single match from this point on!</p>
+                <p class="lead">Haven't been able to satisfy your craving to vote? Well how about this... vote on every single knockout match in the 2018 World Cup!</p>
                 <hr class="my-4">
               </div>
 
 
     <div class="container">
     <div class="row rowOne">
-        <div class="col-md-8">
+        <div class="col-md-12">
 
           <div id="matches">
           </div>
             
         </div>
 
-        <div class="col-md-4">
-            
-          <div id="chart">
-          </div>
-            
-        </div>
+
 
     </div>
     
@@ -161,11 +173,11 @@ function generateMatchDisplay () {
         type: 'GET',
     }).then(function (response) {
 
-        console.log(response.fixtures[63].status)
+        console.log(response.fixtures[63])
     	
     	for (var i=0; i<response.fixtures.length; i++) {
 
-    		
+    		if (moment(response.fixtures[i].date).isAfter(moment("2018-06-29")) === true && response.fixtures[i].homeTeamName !== "") {
     			
     			var divToContain = $('<div>');
     			divToContain.addClass("theDivOfContainer");
@@ -202,7 +214,7 @@ function generateMatchDisplay () {
                 $("#matches").append(divToContain)	
 
 
-
+            }
 
     		
 
@@ -302,7 +314,10 @@ function useClickMe () {
   // display the chart in the container
   chart.container('chart');
   chart.draw();
+  $("#myModalTwo").modal()
+
 })
+
 
 
 
