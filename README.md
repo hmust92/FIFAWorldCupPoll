@@ -23,6 +23,16 @@ Andrea Velardi - Full Stack Developer - https://github.com/andrea-velardi
 John Bassili - Front End Developer -
 Chris Prieto - Front End Developer - https://github.com/ChrisPrieto
 
+### Technologies used:
+
+* SQL database
+* Sequelize library
+* Node.js
+* Express.js
+* Javascript
+* jQuery
+* HTML
+
 Some gifs to show some of the functionality:
 
 Login
